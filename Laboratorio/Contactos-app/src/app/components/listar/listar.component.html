@@ -1,0 +1,69 @@
+<mat-toolbar color="primary" class="header">
+  <span>Sandra Gilazaña Martínez</span>
+</mat-toolbar>
+
+<div class="tabla-bloque">
+  <div class="titulo">
+    <mat-toolbar color="primary" class="header">
+      <span class="titulo">Listado de Usuarios</span>
+
+      <button
+        class="boton-add"
+        mat-mini-fab
+        color="primary"
+        [routerLink]="['/agregar']"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon>person_add</mat-icon>
+      </button></mat-toolbar
+    >
+  </div>
+  <div class="titulo-vacio" *ngIf="listaUsuarios.length == 0" >
+    <mat-toolbar color="warn" class="header">
+      <span class="titulo">No hay Usuarios</span>
+    </mat-toolbar
+    >
+  </div>
+
+  <table class="greenTable" *ngIf="listaUsuarios.length > 0">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Edad</th>
+        <th>dni</th>
+        <th>Color Favorito</th>
+        <th>Sexo</th>
+        <th>Cumpleaños</th>
+        <th>Notas</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tfoot></tfoot>
+    <tbody>
+      <tr *ngFor="let usuario of listaUsuarios; let i = index">
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellidos }}</td>
+        <td>{{ usuario.edad }}</td>
+        <td>{{ usuario.dni }}</td>
+        <td>{{ usuario.colorFavorito }}</td>
+        <td>{{ usuario.sexo }}</td>
+        <td>
+          {{ usuario.cumpleanos | date: "dd" }} /
+          {{ usuario.cumpleanos | date: "MM" }}
+        </td>
+        <td>{{ usuario.notas }}</td>
+        <td>
+          <div>
+            <button mat-mini-fab color="primary" [routerLink]="['/editar', usuario._id]">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="borrarUsuario(usuario._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

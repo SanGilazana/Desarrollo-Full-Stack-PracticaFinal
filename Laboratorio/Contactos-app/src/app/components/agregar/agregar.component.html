@@ -1,0 +1,227 @@
+
+<mat-toolbar color="primary" class="header">
+  <span>Sandra Gilazaña Martínez</span>
+</mat-toolbar>
+
+<div class="bloque">
+  <div class="titulo">
+    <mat-toolbar color="primary" class="header">
+      <span class="titulo">{{ Cabecera }}<!--||  uppercase --></span>
+    </mat-toolbar>
+  </div>
+  <form class="formulario" [formGroup]="UserForm" (ngSubmit)="agregarUsuario()">
+    <!-- nombre -->
+    <div class="full-width">
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Nombre"
+          formControlName="nombre"
+        />
+        <mat-error *ngIf="
+            UserForm.controls.nombre.errors?.required &&
+            UserForm.controls.nombre.touched
+          ">
+          Campo nombre requerido.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.nombre.errors?.minlength &&
+            UserForm.controls.nombre.touched
+          ">
+          Longitud del campo debe ser de al menos
+          {{ UserForm.controls.nombre.errors?.minlength.requiredLength }}
+          caracteres.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.nombre.errors?.maxlength &&
+            UserForm.controls.nombre.touched
+          ">
+          Longitud del campo debe ser máximo
+          {{ UserForm.controls.nombre.errors?.maxlength.requiredLength }}
+          caracteres.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.nombre.errors?.nonumbers &&
+            UserForm.controls.nombre.touched
+          ">
+          Sólo puede introducir letras.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Apellidos -->
+    <div class="full-width">
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Apellidos"
+          formControlName="apellidos"
+        />
+        <mat-error *ngIf="
+            UserForm.controls.apellidos.errors?.required &&
+            UserForm.controls.apellidos.touched
+          ">
+          Campo apellidos requerido.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.apellidos.errors?.minlength &&
+            UserForm.controls.apellidos.touched
+          ">
+          Longitud del campo debe ser de al menos
+          {{ UserForm.controls.apellidos.errors?.minlength.requiredLength }}
+          caracteres.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.apellidos.errors?.maxlength &&
+            UserForm.controls.apellidos.touched
+          ">
+          Longitud del campo debe ser máximo
+          {{ UserForm.controls.apellidos.errors?.maxlength.requiredLength }}
+          caracteres.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.apellidos.errors?.nonumbers &&
+            UserForm.controls.apellidos.touched
+          ">
+          Sólo puede introducir letras.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Edad -->
+    <div class="full-width">
+      <mat-form-field>
+        <input type="text" matInput placeholder="Edad" formControlName="edad" />
+        <mat-error *ngIf="
+            UserForm.controls.edad.errors?.required &&
+            UserForm.controls.edad.touched
+          ">
+          Campo edad requerido.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.edad.errors?.edadvalid &&
+            UserForm.controls.edad.touched
+          ">
+          Rango de edad permitido: 0 - 125 años
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- dni -->
+    <div class="full-width">
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="dni -> 01234567L"
+          formControlName="dni"
+        />
+        <mat-error *ngIf="
+            UserForm.controls.dni.errors && UserForm.controls.dni.touched
+          ">
+          {{ UserForm.controls.dni.errors.dnivalid }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Cumpleaños -->
+    <div class="full-width">
+      <mat-form-field appearance="fill">
+        <mat-label>Escoge una fecha de cumpleaños</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="cumpleanos" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="
+            UserForm.controls.cumpleanos.errors?.required &&
+            UserForm.controls.cumpleanos.touched
+          ">
+          Campo Cumpleaños requerido
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.cumpleanos.errors &&
+            UserForm.controls.cumpleanos.touched
+          ">
+          {{ UserForm.controls.cumpleanos.errors.rangeDate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Color Favorito -->
+    <div class="full-width">
+      <mat-form-field appearance="fill">
+        <mat-label>Color Favorito</mat-label>
+        <mat-select formControlName="colorFavorito">
+          <mat-option>Seleccione un color</mat-option>
+          <ng-container *ngFor="let item of colors">
+            <mat-option value="{{ item }}">{{ item }}</mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="
+            UserForm.controls.colorFavorito.errors?.required &&
+            UserForm.controls.colorFavorito.touched
+          ">
+          Campo Color Favorito Requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Sexo -->
+    <div class="full-width">
+      <mat-form-field>
+        <mat-label>Género</mat-label>
+        <mat-select formControlName="sexo">
+          <mat-option>Seleccione su identidad</mat-option>
+          <ng-container *ngFor="let item of opciones_sexo">
+            <mat-option value="{{ item }}">{{ item }} </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="
+        UserForm.controls.sexo.errors?.required &&
+        UserForm.controls.sexo.touched
+      ">
+      Campo Género Requerido
+    </mat-error>
+  </mat-form-field>
+    </div>
+    <!-- Notas -->
+    <div class="full-width">
+      <mat-form-field appearance="fill">
+        <mat-label>Notas</mat-label>
+        <textarea matInput formControlName="notas"></textarea>
+        <mat-error *ngIf="
+            UserForm.controls.notas.errors?.required &&
+            UserForm.controls.notas.touched
+          ">
+          Campo notas requerido.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.notas.errors?.minlength &&
+            UserForm.controls.notas.touched
+          ">
+          Longitud del campo debe ser de al menos
+          {{ UserForm.controls.notas.errors?.minlength.requiredLength }}
+          caracteres.
+        </mat-error>
+        <mat-error *ngIf="
+            UserForm.controls.notas.errors?.maxlength &&
+            UserForm.controls.notas.touched
+          ">
+          Longitud del campo debe ser máximo
+          {{ UserForm.controls.notas.errors?.maxlength.requiredLength }}
+          caracteres.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Botones -->
+    <div class="botones">
+      <button mat-mini-fab color="secondary" class="boton-new" [routerLink]="['/editar']">
+        <mat-icon>first_page</mat-icon>
+      </button>
+      <ng-template>Hello from the snackbar</ng-template>
+      <button type="submit" mat-mini-fab color="secondary" class="boton-new" [disabled]="!UserForm.valid">
+        <mat-icon>fiber_new</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>
